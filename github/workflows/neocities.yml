@@ -1,0 +1,21 @@
+name: Deploy to neocities
+
+# publicamos cambios solo en el main branch
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v1
+    # Cuando el dist dir este listo, publicar 
+    - name: Deploy to neocities
+      uses: bcomnes/deploy-to-neocities@v1
+      with:
+        api_token: ${{ secrets.NEOCITIES_API_TOKEN }}
+        cleanup: true
+        dist_dir: public
