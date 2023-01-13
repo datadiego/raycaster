@@ -10,9 +10,9 @@ function setup() {
 }
 
 function draw() {
-  wall.move()
   background(0);
   wall.show();
+  particle.update(mouseX, mouseY)
   particle.show();
   particle.look(wall);
   // ray.show();

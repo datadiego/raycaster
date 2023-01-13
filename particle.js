@@ -6,6 +6,10 @@ class Particle{
             this.rays.push(new Ray(this.pos, radians(a)));
         }
     }
+    update(x, y){
+        this.pos.x = x
+        this.pos.y = y
+    }
     show(){
         fill(255);
         ellipse(this.pos.x, this.pos.y, 4);
