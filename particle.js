@@ -18,6 +18,7 @@ class Particle{
             const pt = ray.cast(wall);
             if(pt){
                 fill(255);
+                line(this.pos.x, this.pos.y, pt.x, pt.y)
                 ellipse(pt.x, pt.y, 8, 8);
             }
         }
