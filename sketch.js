@@ -10,6 +10,7 @@ function setup() {
 }
 
 function draw() {
+  wall.move()
   background(0);
   wall.show();
   particle.show();
