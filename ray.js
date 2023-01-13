@@ -3,7 +3,11 @@ class Ray{
         this.pos = createVector(x, y);
         this.dir = createVector(1, 0);
     }
-
+    lookAt(x, y){
+        this.dir.x = x - this.pos.x;
+        this.dir.y = y - this.pos.y;
+        this.dir.normalize();
+    }
     show(){
         stroke(255);
         push();
