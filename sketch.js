@@ -3,7 +3,7 @@ let ray
 
 function setup() {
   createCanvas(400, 400);
-  wall = new Boundary(300, 100, 300, 300);
+  wall = new Boundary(300, 100, 200, 300);
   ray = new Ray(100, 200);
 
 }
@@ -15,8 +15,8 @@ function draw() {
   ray.lookAt(mouseX, mouseY);
   let pt = ray.cast(wall)
   if(pt){
-    // fill(255);
-    // ellipse(pt.x, pt.y, 8, 8);
+    fill(255);
+    ellipse(pt.x, pt.y, 8, 8);
     
     console.log(pt)
   }
