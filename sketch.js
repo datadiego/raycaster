@@ -1,49 +1,54 @@
-let walls = []
-let ray
-let particle
+let canvas;
+let ctx;
+let FPS = 50;
+let nivel = [
+    [1,1,1,1,1,1,1,1,1,1],
+    [1,0,0,0,0,0,0,0,0,1],
+    [1,0,0,1,1,1,0,0,0,1],
+    [1,0,0,1,0,1,0,0,0,1],
+    [1,0,0,1,1,1,0,0,0,1],
+    [1,0,0,0,0,0,0,0,0,1],
+    [1,0,0,0,0,0,0,0,0,1],
+    [1,0,0,0,0,0,0,0,0,1],
+    [1,0,0,0,0,0,0,0,0,1],
+    [1,1,1,1,1,1,1,1,1,1]
+]
 
-let xoff = 0;
-let yoff = 100;
-function setup() {
+class Level{
+    constructor(){
+        this.map = nivel;
+    }
+    draw(){
+        for(let i = 0; i < this.map.length; i++){
+            for(let j = 0; j < this.map[i].length; j++){
+                if(this.map[i][j] === 1){
+                    ctx.fillStyle = "black";
+                    ctx.fillRect(j*50, i*50, 50, 50);
+                }
+            }
+        }
+    }
+}
+canvasWidth = 500;
+canvasHeight = 500;
 
-  createCanvas(displayWidth, displayHeight);
-  for(let i = 0; i < 5; i++){
-    let x1 = random(width);
-    let x2 = random(width);
-    let y1 = random(height);
-    let y2 = random(height);
-    walls[i] = new Boundary(x1, y1, x2, y2);
-    walls[i].move()
-  }
-  console.log(width, height)
-  console.log("tengo " + walls.length + " paredes")
-  walls.push(new Boundary(0, 0, width, 0));
-  walls.push(new Boundary(width, 0, width, height));
-  walls.push(new Boundary(width, height, 0, height));
-  walls.push(new Boundary(0, height, 0, 0));
-  console.log("tengo " + walls.length + " paredes")
-  particle = new Particle();
+function inicializa(){
+    canvas = document.getElementById('canvas');
+    ctx = canvas.getContext('2d');
+    level = new Level();
+    setInterval(function(){
+        principal();
+    },1000/FPS);
 }
 
-function draw() {
-  background(0);
-  for (let wall of walls){
-    wall.show();
-  }
-  // particle.update(mouseX, mouseY)
-  particle.update(noise(xoff)*width, noise(yoff)*height)
-  xoff += 0.01;
-  yoff += 0.01;
-  particle.show();
-  particle.look(walls);
-  // ray.show();
-  // ray.lookAt(mouseX, mouseY);
-  // let pt = ray.cast(wall)
-  // if(pt){
-  //   fill(255);
-  //   ellipse(pt.x, pt.y, 8, 8);
-    
-  //   console.log(pt)
-  // }
+function borrarCanvas(){
+    canvas.width = 500;
+    canvas.height = 500;
+}
 
+
+function principal(){
+  console.log("LESGOOO")
+    borrarCanvas();
+    level.draw();
 }
