@@ -15,35 +15,58 @@ let nivel = [
 ]
 
 class Level{
-    constructor(){
-        this.map = nivel;
+    constructor(can, con, arr){
+        this.map = arr;
+        this.canvas = can;
+        this.ctx = con;
+
+        //Dimensiones matriz
+        this.altoM = this.map.length;
+        this.anchoM = this.map[0].length;
+
+        //Dimensiones canvas
+        this.altoC = this.canvas.height;
+        this.anchoC = this.canvas.width;
+
+        //Dimensiones celda
+        this.altoTile = this.altoC / this.altoM;
+        this.anchoTile = this.anchoC / this.anchoM;
+
+        console.log(this.altoM, this.anchoM, this.altoC, this.anchoC, this.altoTile, this.anchoTile)
     }
     draw(){
-        for(let i = 0; i < this.map.length; i++){
-            for(let j = 0; j < this.map[i].length; j++){
-                if(this.map[i][j] === 1){
+      let color = "#000000"
+        for(let y = 0; y < this.altoM; y++){
+            for(let x = 0; x < this.anchoM; x++){
+                if(this.map[y][x] === 1){
                     ctx.fillStyle = "black";
-                    ctx.fillRect(j*50, i*50, 50, 50);
+                    ctx.fillRect(x*this.anchoTile, y*this.altoTile, 50, 50);
+                }
+                else{
+                    ctx.fillStyle = "white";
+                    ctx.fillRect(x*this.anchoTile, y*this.altoTile, 50, 50);
                 }
             }
         }
     }
 }
-canvasWidth = 500;
-canvasHeight = 500;
+
 
 function inicializa(){
     canvas = document.getElementById('canvas');
     ctx = canvas.getContext('2d');
-    level = new Level();
+    canvas.width = 500;
+    canvas.height = 500;
+    level = new Level(canvas, ctx, nivel);
+    
     setInterval(function(){
-        principal();
+      principal();
     },1000/FPS);
 }
 
 function borrarCanvas(){
-    canvas.width = 500;
-    canvas.height = 500;
+    canvas.width = canvas.width;
+    canvas.height = canvas.height;
 }
 
 
