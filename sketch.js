@@ -13,6 +13,10 @@ let nivel = [
     [1,0,0,0,0,0,0,0,0,1],
     [1,1,1,1,1,1,1,1,1,1]
 ]
+let level;
+let player;
+
+
 
 class Level{
     constructor(can, con, arr){
@@ -51,14 +55,31 @@ class Level{
     }
 }
 
-
+class Player{
+  constructor(con, escenario, x, y){
+    this.ctx = con; //contexto
+    this.level = escenario;
+    this.x = x;
+    this.y = y;
+    this.avanza = 0; //0: no avanza, 1: avanza, 2: retrocede
+    this.gira = 0; //0: no gira, 1: gira a la derecha, 2: gira a la izquierda
+    this.rotacion = 0; //angulo de rotacion
+    this.velocidadMovimiento = 3; //velocidad
+    this.velocidadGiro = 3*(Math.PI/180); //velocidad de rotacion en grados, 3 grados
+  }
+  dibuja(){
+    this.ctx.fillStyle = "red";
+    this.ctx.fillRect(this.x, this.y, 6, 6);
+  
+  }
+}
 function inicializa(){
     canvas = document.getElementById('canvas');
     ctx = canvas.getContext('2d');
     canvas.width = 500;
     canvas.height = 500;
     level = new Level(canvas, ctx, nivel);
-    
+    jugador = new Player(ctx, level, 100, 100);
     setInterval(function(){
       principal();
     },1000/FPS);
@@ -71,7 +92,7 @@ function borrarCanvas(){
 
 
 function principal(){
-  console.log("LESGOOO")
     borrarCanvas();
     level.draw();
+    jugador.dibuja();
 }
