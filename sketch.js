@@ -57,7 +57,24 @@ function normalizarAngulo(angulo){
   }
   return angulo;
 }
+class Ray{
+  constructor(con, escenario, columna, x, y, anguloJugador, incrementoAngulo){
+    this.ctx = con;
+    this.level = escenario;
+    this.col = columna
+    this.x = x;
+    this.y = y;
+    this.anguloJugador = anguloJugador;
+    this.incrementoAngulo = incrementoAngulo;
+    console.log("Rayo creado" + this.anguloJugador);
+  }
 
+  cast(){
+    this.xIntercept = 0;
+    this.yIntercept = 0;
+    
+  }
+}
 class Level{
     constructor(can, con, arr){
       this.map = arr;
@@ -112,6 +129,8 @@ class Player{
     this.rotacion = 0; //angulo de rotacion
     this.velocidadMovimiento = 3; //velocidad
     this.velocidadGiro = 3*(Math.PI/180); //velocidad de rotacion en grados, 3 grados
+    this.rayo;
+    this.rayo = new Ray(this.ctx, this.map, 0, this.x, this.y, this.rotacion, this.velocidadGiro);
   }
   
   colision(x, y){
