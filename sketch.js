@@ -49,8 +49,14 @@ document.addEventListener("keyup", function(tecla){
 let level;
 let player;
 
-//Funciones teclado
-
+//Normalizacion de angulos
+function normalizarAngulo(angulo){
+  angulo = angulo % (2 * Math.PI);
+  if(angulo < 0){
+    angulo = (2 * Math.PI) + angulo;
+  }
+  return angulo;
+}
 
 class Level{
     constructor(can, con, arr){
@@ -128,6 +134,9 @@ class Player{
     }
 
     this.rotacion += (this.gira*this.velocidadGiro);
+    this.rotacion = normalizarAngulo(this.rotacion);
+    console.log("this.rotacion: " + this.rotacion);
+    
   }
 
   dibuja(){
