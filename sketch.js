@@ -71,6 +71,13 @@ class Level{
         this.anchoTile = this.anchoC / this.anchoM;
 
       }
+      colision(x,y){
+        let choca = false;
+        if(this.map[y][x] != 0){
+          choca = true;
+        }
+        return choca;
+      }
       draw(){
         let color = "#000000"
         for(let y = 0; y < this.altoM; y++){
@@ -101,14 +108,28 @@ class Player{
     this.velocidadGiro = 3*(Math.PI/180); //velocidad de rotacion en grados, 3 grados
   }
   
+  colision(x, y){
+    let choca = false;
+    let tilex = Math.floor(x/this.level.anchoTile);
+    let tiley = Math.floor(y/this.level.altoTile);
+    if(this.level.colision(tilex, tiley)){
+      choca = true;
+    }
+    return choca;
+  }
+
   actualiza(){
     let nuevaX = this.x + (this.avanza*Math.cos(this.rotacion)*this.velocidadMovimiento);
     let nuevaY = this.y + (this.avanza*Math.sin(this.rotacion)*this.velocidadMovimiento);
+
+    if(!this.colision(nuevaX, nuevaY)){ //si no choca
+      this.x = nuevaX;
+      this.y = nuevaY;
+    }
+
     this.rotacion += (this.gira*this.velocidadGiro);
-    this.x = nuevaX;
-    this.y = nuevaY;
   }
-  
+
   dibuja(){
     this.ctx.fillStyle = "red";
     this.actualiza();
@@ -122,9 +143,6 @@ class Player{
     this.ctx.lineTo(xDestino, yDestino);
     this.ctx.stroke();
     this.ctx.closePath();
-
-
-    
   }
   up(){
     this.avanza = 1;
