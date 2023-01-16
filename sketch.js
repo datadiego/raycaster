@@ -113,8 +113,8 @@ class Player{
     this.ctx.fillStyle = "red";
     this.actualiza();
     this.ctx.fillRect(this.x-3, this.y-3, 6, 6);
-    var xDestino = this.x + (Math.cos(this.rotacion)*20);
-    var yDestino = this.y + (Math.sin(this.rotacion)*20);
+    var xDestino = this.x + (Math.cos(this.rotacion)*40);
+    var yDestino = this.y + (Math.sin(this.rotacion)*40);
 
     this.ctx.beginPath();
     this.ctx.strokeStyle = "red";
