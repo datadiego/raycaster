@@ -52,9 +52,25 @@ class Level{
             [0,0,5,1,0,0],
               
         ]
+        this.nuevo_mapa();
+        console.log(this.mapa.length)
         this.window = window;
     }
-
+    nuevo_mapa(){
+        this.mapa = []
+        for (let i = 0; i < 6; i++) {
+            this.mapa[i] = []
+            for (let j = 0; j < 6; j++) {
+                this.mapa[i][j] = Math.random() > 0.2 ? 0 : 1;
+            }
+        }
+        this.coloca_salida();
+    }
+    coloca_salida(){
+        let pos_x = Math.floor(Math.random() * this.mapa[0].length);
+        let pos_y = Math.floor(Math.random() * this.mapa.length);
+        this.mapa[pos_y][pos_x] = 2;
+    }
     dibuja(){
         for (let i = 0; i < this.mapa.length; i++) {
             for (let j = 0; j < this.mapa[i].length; j++) {
@@ -88,25 +104,41 @@ class Player{
         this.nivel = nivel;
     }
     up(){
-        if(this.y > 0){
+        if(this.nivel.mapa[this.y-1][this.x] == 2){
+            this.y -= 1;
+            this.nivel.nuevo_mapa();
+        }
+        if(this.y > 0 && this.nivel.mapa[this.y - 1][this.x] != 1){
             this.nivel.mapa[this.y][this.x] = 0;
             this.y -= 1;
         }
     }
     down(){
-        if(this.y < this.nivel.mapa.length - 1){
+        if(this.nivel.mapa[this.y+1][this.x] == 2){
+            this.y += 1;
+            this.nivel.nuevo_mapa();
+        }
+        if(this.y < this.nivel.mapa.length - 1 && this.nivel.mapa[this.y + 1][this.x] != 1){
             this.nivel.mapa[this.y][this.x] = 0;
             this.y += 1;
         }
     }
     left(){
-        if(this.x > 0){
+        if(this.nivel.mapa[this.y][this.x-1] == 2){
+            this.x -= 1;
+            this.nivel.nuevo_mapa();
+        }
+        if(this.x > 0 && this.nivel.mapa[this.y][this.x - 1] != 1){
             this.nivel.mapa[this.y][this.x] = 0;
             this.x -= 1;
         }
     }
     right(){
-        if(this.x < this.nivel.mapa[0].length - 1){
+        if(this.nivel.mapa[this.y][this.x+1] == 2){
+            this.x += 1;
+            this.nivel.nuevo_mapa();
+        }
+        if(this.x < this.nivel.mapa[0].length - 1 && this.nivel.mapa[this.y][this.x + 1] != 1){
             this.nivel.mapa[this.y][this.x] = 0;
             this.x += 1;
         }
