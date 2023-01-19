@@ -6,11 +6,10 @@ class Player{
       this.y = y;
       this.avanza = 0; //0: no avanza, 1: avanza, 2: retrocede
       this.gira = 0; //0: no gira, 1: gira a la derecha, 2: gira a la izquierda
-      this.rotacion = 0; //angulo de rotacion
+      this.rotacion = 6; //angulo de rotacion
       this.velocidadMovimiento = 3; //velocidad
       this.velocidadGiro = 3*(Math.PI/180); //velocidad de rotacion en grados, 3 grados
-      this.rayo;
-      this.rayo = new Ray(this.ctx, this.map, 0, this.x, this.y, this.rotacion, this.velocidadGiro);
+      this.rayo = new Ray(this.ctx, this.level, 0, this.x, this.y, this.rotacion, this.velocidadGiro);
     }
     
     colision(x, y){
@@ -31,26 +30,31 @@ class Player{
         this.x = nuevaX;
         this.y = nuevaY;
       }
-  
+      
       this.rotacion += (this.gira*this.velocidadGiro);
       this.rotacion = normalizarAngulo(this.rotacion);
-      console.log("this.rotacion: " + this.rotacion);
       
+
     }
   
     dibuja(){
-      this.ctx.fillStyle = "red";
-      this.actualiza();
-      this.ctx.fillRect(this.x-3, this.y-3, 6, 6);
-      var xDestino = this.x + (Math.cos(this.rotacion)*40);
-      var yDestino = this.y + (Math.sin(this.rotacion)*40);
-  
-      this.ctx.beginPath();
-      this.ctx.strokeStyle = "red";
-      this.ctx.moveTo(this.x, this.y);
-      this.ctx.lineTo(xDestino, yDestino);
-      this.ctx.stroke();
-      this.ctx.closePath();
+        this.actualiza();
+        this.rayo.setAngulo(this.rotacion)
+        this.rayo.x = this.x;
+        this.rayo.y = this.y;
+        this.rayo.dibuja();
+
+        this.ctx.fillStyle = "red";
+        this.ctx.fillRect(this.x-3, this.y-3, 6, 6);
+        var xDestino = this.x + (Math.cos(this.rotacion)*40);
+        var yDestino = this.y + (Math.sin(this.rotacion)*40);
+        
+        this.ctx.beginPath();
+        this.ctx.strokeStyle = "red";
+        this.ctx.moveTo(this.x, this.y);
+        this.ctx.lineTo(xDestino, yDestino);
+        this.ctx.stroke();
+        this.ctx.closePath();
     }
     up(){
       this.avanza = 1;
