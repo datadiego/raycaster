@@ -1,16 +1,15 @@
 class Level{
     constructor(window){
         this.mapa = [
-            [0,0,0,6,0,0],
-            [0,0,0,1,4,0],
+            [0,4,1,0,0,0],
+            [1,0,2,0,0,0],
             [0,1,0,0,0,0],
-            [0,0,0,1,0,0],
+            [0,4,0,1,0,0],
             [0,0,0,1,2,0],
-            [0,0,5,1,0,0],
+            [0,0,1,1,0,0],
               
         ]
-        this.nuevo_mapa();
-        console.log(this.mapa.length)
+        //this.nuevo_mapa();
         this.window = window;
     }
     nuevo_mapa(){
@@ -52,12 +51,7 @@ class Level{
                 else if (this.mapa[i][j] == 4){
                     this.window[i].innerHTML += "🐀";
                 }
-                else if (this.mapa[i][j] == 5){
-                    this.window[i].innerHTML += "🧟‍♂️";
-                }
-                else if (this.mapa[i][j] == 6){
-                    this.window[i].innerHTML += "🕷️";
-                }
+
             }
         }
     }
