@@ -15,15 +15,16 @@ function inicializa(){
     let canvas3 = document.getElementById('canvas3');
     let canvas4 = document.getElementById('canvas4');
     let canvas5 = document.getElementById('canvas5');
-    let window = [canvas0,canvas1,canvas2,canvas3,canvas4,canvas5]
+    let window = [canvas0,canvas1,canvas2,canvas3,canvas4,canvas5];
+
     setInterval(function(){
         borrarCanvas()
-        player.dibuja();
+        juego.render();
     },1000/FPS);
-
     nivel = new Level(window);
     player = new Player(nivel);
-    player.dibuja();
+    let juego = new Juego(nivel, player);
+
 }
 document.addEventListener("keydown", function(tecla){
     if(tecla.keyCode == 38){
@@ -41,12 +42,26 @@ document.addEventListener("keydown", function(tecla){
 
 });
 
+class Juego{
+    constructor(nivel, player){
+        this.turno = "player"
+        this.nivel = nivel;
+        this.player = player;
+    }
+    render(){
+        //Hacemos cambios en la matriz
+        this.player.dibuja(); //Edito la matriz y añado el pj
+        //Renderizamos la matriz
+        this.nivel.dibuja(); //Convierto numeros a emojis
+    }
 
+}
 
 class Rat{
     constructor(nivel){
         this.x = 5;
         this.y = 4;
+        this.health = 1;
         this.nivel = nivel;
     }
     up(){
