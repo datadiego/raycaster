@@ -32,7 +32,53 @@ class Player{
             }
         }
     }
-
+    getEnemyFromPos(pos){
+        let enemy;
+        console.log(this.nivel.enemigos.length)
+        for(let i = 0; i < this.nivel.enemigos.length; i++){
+            if(this.nivel.enemigos[i].x == pos[1] && this.nivel.enemigos[i].y == pos[0]){
+                enemy = this.nivel.enemigos[i];
+                break;
+            }
+        }
+        return enemy;
+    }
+    getEnemyPosition(dir){
+        let enemyPosition;
+        if(dir == "up"){
+            for(let i = this.y - 1; i >= 0; i--){
+                if(this.nivel.mapa[i][this.x] == 4){
+                    enemyPosition = [i, this.x];
+                    break;
+                }
+            }
+        }
+        else if(dir == "down"){
+            for(let i = this.y + 1; i < this.nivel.mapa.length; i++){
+                if(this.nivel.mapa[i][this.x] == 4){
+                    enemyPosition = [i, this.x];
+                    break;
+                }
+            }
+        }
+        else if(dir == "left"){
+            for(let i = this.x - 1; i >= 0; i--){
+                if(this.nivel.mapa[this.y][i] == 4){
+                    enemyPosition = [this.y, i];
+                    break;
+                }
+            }
+        }
+        else if(dir == "right"){
+            for(let i = this.x + 1; i < this.nivel.mapa[0].length; i++){
+                if(this.nivel.mapa[this.y][i] == 4){
+                    enemyPosition = [this.y, i];
+                    break;
+                }
+            }
+        }
+        return enemyPosition;
+    }
     getAction(way){
         let isEnemy = this.detectEnemy(way);
         let isWalkable = this.detectWalkable(way);
@@ -82,18 +128,35 @@ class Player{
             way.push(lastCheckCell)
         }
     }
-
         return way;
+    }
+    
+    doAction(action, way, dir){
+        console.log(action)
+        if(action == "move" && dir == "up"){
+            this.moveUp();
+        }
+        else if(action == "move" && dir == "down"){
+            this.moveDown();
+        }
+        else if(action == "move" && dir == "left"){
+            this.moveLeft();
+        }
+        else if(action == "move" && dir == "right"){
+            this.moveRight();
+        }
+
+        else if(action == "attack"){
+            let enemyPos = this.getEnemyPosition(dir);
+            let enemy = this.getEnemyFromPos(enemyPos);
+            console.log(enemy)
+        }
     }
     up(){
         //Resto en la y
         let way = this.getWay("up");
         let action = this.getAction(way);
-        if (action == "attack"){
-        }
-        else if (action == "move"){
-            this.moveUp();
-        }
+        this.doAction(action, way, "up");
 
     }
     down(){
@@ -101,32 +164,22 @@ class Player{
         let way = this.getWay("down");
         let action = this.getAction(way);
 
-        if (action == "attack"){
-        }
-        else if (action == "move"){
-            this.moveDown();
-        }
+        this.doAction(action, way, "down");
     }
     left(){
         //Resto en la x
         let way = this.getWay("left");
         let action = this.getAction(way);
-        if (action == "attack"){
-        }
-        else if (action == "move"){
-            this.moveLeft();
-        }
+        
+        this.doAction(action, way, "left");
 
     }
     right(){
         //Sumo en la x
         let way = this.getWay("right");
         let action = this.getAction(way);
-        if (action == "attack"){
-        }
-        else if (action == "move"){
-            this.moveRight();
-        }
+        
+        this.doAction(action, way, "right");
 
     }
 

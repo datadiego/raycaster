@@ -9,22 +9,16 @@ class Level{
             [0,0,1,1,0,0],
               
         ]
-        //this.nuevo_mapa();
+        this.nuevo_mapa();
         this.window = window;
+        this.enemigos = [];
     }
     nuevo_mapa(){
         this.mapa = []
-        let rat_amount = 2;
         for (let i = 0; i < 6; i++) {
             this.mapa[i] = []
             for (let j = 0; j < 6; j++) {
                 this.mapa[i][j] = Math.random() > 0.2 ? 0 : 1;
-                if(rat_amount > 0){
-                    if(Math.random() > 0.8){
-                        this.mapa[i][j] = 4;
-                        rat_amount--;
-                    }
-                }
             }
         }
         this.coloca_salida();

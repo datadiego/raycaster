@@ -15,15 +15,15 @@ function inicializa(){
     let canvas3 = document.getElementById('canvas3');
     let canvas4 = document.getElementById('canvas4');
     let canvas5 = document.getElementById('canvas5');
+
     let window = [canvas0,canvas1,canvas2,canvas3,canvas4,canvas5];
 
     setInterval(function(){
         borrarCanvas()
-        juego.render();
+        render();
     },1000/FPS);
     nivel = new Level(window);
     player = new Player(nivel);
-    let juego = new Juego(nivel, player);
 
 }
 document.addEventListener("keydown", function(tecla){
@@ -41,29 +41,22 @@ document.addEventListener("keydown", function(tecla){
     }
 
 });
-
-class Juego{
-    constructor(nivel, player){
-        this.turno = "player"
-        this.nivel = nivel;
-        this.player = player;
-    }
-    render(){
-        //Hacemos cambios en la matriz
-        this.player.dibuja(); //Edito la matriz y añado el pj
-        //Renderizamos la matriz
-        this.nivel.dibuja(); //Convierto numeros a emojis
-    }
-
+function render(){
+    
+    player.dibuja();
+    nivel.dibuja();
 }
 
+
 class Rat{
-    constructor(nivel){
-        this.x = 5;
-        this.y = 4;
+    constructor(nivel, x, y){
+        this.x = x;
+        this.y = y;
         this.health = 1;
         this.nivel = nivel;
+        this.nivel.mapa[this.y][this.x] = 4;
     }
+
     up(){
         if(this.nivel.mapa[this.y-1][this.x] == 2){
             this.y -= 1;
