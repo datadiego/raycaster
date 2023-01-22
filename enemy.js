@@ -4,7 +4,7 @@ class Enemy{
         this.y = y;
         this.walkable = false;
         this.isEnemy = true;
-        this.valor = 3;
+        this.valor = 4;
         this.level = level;
         this.health = 1;
     }

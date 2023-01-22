@@ -1,9 +1,8 @@
+const FPS = 30;
 class Game{
     constructor(window){
         this.level = new Level(6,6);
-        this.level.nuevoMapa();
-        this.window = window;
-
+        this.window = window; //array con las lineas de texto para los emoji
     }
 
     render(){
@@ -26,7 +25,14 @@ class Game{
         }
     }
 }
-
+function borrarCanvas(){
+    canvas0.innerHTML = "";
+    canvas1.innerHTML = "";
+    canvas2.innerHTML = "";
+    canvas3.innerHTML = "";
+    canvas4.innerHTML = "";
+    canvas5.innerHTML = "";
+}
 function inicializa(){
     let canvas0 = document.getElementById('canvas0');
     let canvas1 = document.getElementById('canvas1');
@@ -38,6 +44,9 @@ function inicializa(){
     let window = [canvas0,canvas1,canvas2,canvas3,canvas4,canvas5];
 
     let game = new Game(window);
-    game.render();
+    setInterval(function(){
+        borrarCanvas()
+        game.render();
+    },1000/FPS);
 
 }

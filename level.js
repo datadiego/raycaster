@@ -1,29 +1,25 @@
+
 class Level{
-    constructor(width, height, window){
-        this.map = [
-            [0,0,0,0,0,0],
-            [0,0,0,0,0,0],
-            [0,0,0,0,0,0],
-            [0,0,0,0,0,0],
-            [0,0,0,0,0,0],
-            [0,0,0,0,0,0]
-        ];
-        this.nuevoMapa();
+    constructor(width, height){
+        this.map = [];
+        this.floors = [];
+        this.walls = [];
+        // this.situaJugador();
         this.width = width;
         this.height = height;
         this.heat = 0; //the more heat, the more enemies
-        this.player = null;
         this.enemies = [];
-        this.floors = [];
-        this.walls = [];
+        this.nuevoMapa();
+        this.player = new Player(2, 2, this);
 
     }
+
     nuevoMapa(){
     this.map = [];
     this.floors = [];
     this.walls = [];
         for(let x = 0; x < this.width; x++){
-            this.map.push([]);
+            this.map.push([]); 
             for(let y = 0; y < this.height; y++){
                 let valor = Math.random()*100;
                 if(valor < 20){
@@ -37,7 +33,6 @@ class Level{
                 }
             }
         }
-        console.log(this.map)
-        console.log(this.walls)
+        
     }
 }
