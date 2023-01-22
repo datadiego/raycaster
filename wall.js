@@ -7,8 +7,10 @@ class Wall{
         this.valor = 1;
         this.level = level;
         this.health = 1;
+        this.actualizaMapa();
     }
     actualizaMapa(){
         this.level.map[this.x][this.y] = this.valor;
+        this.level.map_objects[this.x][this.y] = this;
     }
 }
