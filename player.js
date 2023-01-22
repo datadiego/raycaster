@@ -1,14 +1,14 @@
-class Suelo{
+class Player{
     constructor(x, y, level){
         this.x = x;
         this.y = y;
-        this.walkable = true;
+        this.walkable = false;
         this.isEnemy = false;
-        this.valor = 0;
+        this.valor = 2;
         this.level = level;
+        this.health = 1;
     }
     actualizaMapa(){
         this.level.map[this.y][this.x] = this.valor;
     }
 }
-
