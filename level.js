@@ -1,5 +1,5 @@
 class Level{
-    constructor(width, height){
+    constructor(width, height, window){
         this.map = [
             [0,0,0,0,0,0],
             [0,0,0,0,0,0],
