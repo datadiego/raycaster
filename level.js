@@ -53,6 +53,5 @@ class Level{
                 }
             }
         }
-        console.log("mapa creado:", this.map);
     }
 }

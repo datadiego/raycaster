@@ -7,7 +7,6 @@ class Game{
         this.turno_jugador = true;
     }
     teclado(key){
-        console.log(key)
         if(key == 38){
             this.level.player.keyInput("up");
         }
