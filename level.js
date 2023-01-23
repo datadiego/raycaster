@@ -47,7 +47,6 @@ class Level{
             }
         }
         if(!camino){
-            console.log("No puedes llegar a la salida");
             this.nuevoMapa();
         }
         else{
@@ -75,8 +74,12 @@ class Level{
     this.enemies = [];
     let playerX = 3;
     let playerY = 3;
-    let salidaX = 5;
-    let salidaY = 5;
+    let salidaX = Math.floor(Math.random()*(this.width-2))+1;
+    let salidaY = Math.floor(Math.random()*(this.height-2))+1;
+    while(salidaX == playerX && salidaY == playerY){
+        salidaX = Math.floor(Math.random()*(this.width-2))+1;
+        salidaY = Math.floor(Math.random()*(this.height-2))+1;
+    }
         for(let y = 0; y < this.height; y++){
             this.map.push([]);
             this.map_objects.push([]);
