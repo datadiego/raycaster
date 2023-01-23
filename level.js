@@ -7,7 +7,9 @@ class Level{
         this.height = height;
         this.heat = 0; //the more heat, the more enemies
         this.enemies = [];
-        this.nuevoMapa();
+        let playerX = Math.floor(Math.random() * this.width);
+        let playerY = Math.floor(Math.random() * this.height);
+        this.nuevoMapa(playerX, playerY);
     }
     getNeighbors(x, y){
         let neighbors = [];
@@ -25,7 +27,7 @@ class Level{
         }
         return neighbors;
     }
-    checkPath(){
+    checkPath(playerX, playerY){
         let queue = [];
         let visited = [];
         let path = [];
@@ -47,7 +49,7 @@ class Level{
             }
         }
         if(!camino){
-            this.nuevoMapa();
+            this.nuevoMapa(playerX, playerY);
         }
         else{
             console.log("Hay camino hasta la salida");
@@ -68,12 +70,10 @@ class Level{
             for(let x = 0; x < this.width; x++){
             this.map_objects[y][x].actualizaMapa();
             }}}
-    nuevoMapa(){
+    nuevoMapa(playerX, playerY){
     this.map = [];
     this.map_objects = [];
     this.enemies = [];
-    let playerX = 3;
-    let playerY = 3;
     let salidaX = Math.floor(Math.random()*(this.width-2))+1;
     let salidaY = Math.floor(Math.random()*(this.height-2))+1;
     while(salidaX == playerX && salidaY == playerY){
@@ -101,6 +101,6 @@ class Level{
                 }
             }
         }
-        this.checkPath();
+        this.checkPath(playerX, playerY);
     }
 }
