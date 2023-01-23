@@ -1,10 +1,26 @@
 const FPS = 30;
+let game = null;
 class Game{
     constructor(window){
         this.level = new Level(6,6);
         this.window = window; //array con las lineas de texto para los emoji
+        this.turno_jugador = true;
     }
-
+    teclado(key){
+        console.log(key)
+        if(key == 38){
+            this.level.player.move("up");
+        }
+        else if(key == 40){
+            this.level.player.move("down");
+        }
+        else if(key == 37){
+            this.level.player.move("left");
+        }
+        else if(key == 39){
+            this.level.player.move("right");
+        }
+    }
     render(){
         for(let i = 0; i < this.level.map.length; i++){
             for(let j = 0; j < this.level.map[i].length; j++){
@@ -40,13 +56,32 @@ function inicializa(){
     let canvas3 = document.getElementById('canvas3');
     let canvas4 = document.getElementById('canvas4');
     let canvas5 = document.getElementById('canvas5');
-
+    
     let window = [canvas0,canvas1,canvas2,canvas3,canvas4,canvas5];
-
+    
     let game = new Game(window);
     setInterval(function(){
         borrarCanvas()
         game.render();
     },1000/FPS);
-
+    
+    document.addEventListener("keydown", function(tecla){
+        let key = tecla.keyCode;
+        
+        // if(tecla.keyCode == 38){
+        //     game.teclado("up");
+        // }
+        // else if(tecla.keyCode == 40){
+        //     player.down();
+        // }
+        // else if(tecla.keyCode == 37){
+        //     player.left();
+        // }
+        // else if(tecla.keyCode == 39){
+        //     player.right();
+        // }
+    if(game.turno_jugador){
+        game.teclado(key)
+    }
+    });
 }

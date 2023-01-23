@@ -10,7 +10,7 @@ class Wall{
         this.actualizaMapa();
     }
     actualizaMapa(){
-        this.level.map[this.x][this.y] = this.valor;
-        this.level.map_objects[this.x][this.y] = this;
+        this.level.map[this.y][this.x] = this.valor;
+        this.level.map_objects[this.y][this.x] = this;
     }
 }
