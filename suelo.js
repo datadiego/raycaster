@@ -6,6 +6,7 @@ class Suelo{
         this.isEnemy = false;
         this.valor = 0;
         this.level = level;
+        this.tile = "suelo"
         this.actualizaMapa();
     }
     actualizaMapa(){

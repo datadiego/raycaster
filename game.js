@@ -2,23 +2,23 @@ const FPS = 30;
 let game = null;
 class Game{
     constructor(window){
-        this.level = new Level(6,6);
+        this.level = new Level(8,8);
         this.window = window; //array con las lineas de texto para los emoji
         this.turno_jugador = true;
     }
     teclado(key){
         console.log(key)
         if(key == 38){
-            this.level.player.move("up");
+            this.level.player.keyInput("up");
         }
         else if(key == 40){
-            this.level.player.move("down");
+            this.level.player.keyInput("down");
         }
         else if(key == 37){
-            this.level.player.move("left");
+            this.level.player.keyInput("left");
         }
         else if(key == 39){
-            this.level.player.move("right");
+            this.level.player.keyInput("right");
         }
     }
     render(){
@@ -48,6 +48,8 @@ function borrarCanvas(){
     canvas3.innerHTML = "";
     canvas4.innerHTML = "";
     canvas5.innerHTML = "";
+    canvas6.innerHTML = "";
+    canvas7.innerHTML = "";
 }
 function inicializa(){
     let canvas0 = document.getElementById('canvas0');
@@ -56,8 +58,10 @@ function inicializa(){
     let canvas3 = document.getElementById('canvas3');
     let canvas4 = document.getElementById('canvas4');
     let canvas5 = document.getElementById('canvas5');
+    let canvas6 = document.getElementById('canvas6');
+    let canvas7 = document.getElementById('canvas7');
     
-    let window = [canvas0,canvas1,canvas2,canvas3,canvas4,canvas5];
+    let window = [canvas0,canvas1,canvas2,canvas3,canvas4,canvas5,canvas6,canvas7];
     
     let game = new Game(window);
     setInterval(function(){

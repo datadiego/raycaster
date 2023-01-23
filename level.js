@@ -3,17 +3,28 @@ class Level{
         this.map = [];
         this.map_objects = [];
         this.player = null;
-        // this.situaJugador();
         this.width = width;
         this.height = height;
         this.heat = 0; //the more heat, the more enemies
         this.enemies = [];
         this.nuevoMapa();
-        this.player.actualizaWays();
-        this.player.actualizaAcciones();
-        console.log(this.player.accion);
     }
-    
+    swapTiles(x1, y1, x2, y2){
+        let temp = this.map_objects[y1][x1];
+        this.map_objects[y1][x1] = this.map_objects[y2][x2];
+        this.map_objects[y2][x2] = temp;
+        this.map_objects[y1][x1].x = x1;
+        this.map_objects[y1][x1].y = y1;
+        this.map_objects[y2][x2].x = x2;
+        this.map_objects[y2][x2].y = y2;
+        this.actualizaMapa()
+        
+    }
+    actualizaMapa(){
+        for(let y = 0; y < this.height; y++){
+            for(let x = 0; x < this.width; x++){
+            this.map_objects[y][x].actualizaMapa();
+            }}}
     nuevoMapa(){
     this.map = [];
     this.map_objects = [];
@@ -32,21 +43,16 @@ class Level{
                 }else{
                     let suelo = new Suelo(x, y, this);
                 }
-                if(x == 3 && y == 5){
+                if(x == 3 && y == 6){
                     let enemy = new Enemy(x, y, this);
                     this.enemies.push(enemy);
                 }
-                if(x == 5 && y == 3){
+                if(x == 6 && y == 3){
                     let enemy = new Enemy(x, y, this);
                     this.enemies.push(enemy);
                 }
-                if(x == 3 && y == 0){
-                    let enemy = new Enemy(x, y, this);
-                    this.enemies.push(enemy);
-                }
-                if(x == 0 && y == 3){
-                    let enemy = new Enemy(x, y, this);
-                    this.enemies.push(enemy);
+                if(x == 0 || y == 0 || x == this.width-1 || y == this.height-1){
+                    let wall = new Wall(x, y, this);
                 }
                 if(x == playerX && y == playerY){
                     this.player = new Player(x, y, this);

@@ -8,65 +8,65 @@ class Player{
         this.level = level;
         this.health = 1;
         this.actualizaMapa();
-        this.accion = {
-            "up": "wait",
-            "down": "wait",
-            "left": "wait",
-            "right": "wait"
-        }
-        this.ways = {
-            "up": [],
-            "down": [],
-            "left": [],
-            "right": []
-        }
-    }
-    actualizaAccion(dir){
-        for(let i=0; i < this.ways[dir].length; i++){
-            if(this.isEnemyBeforeWall(dir)){
-                this.accion[dir] = "attack";
-                break;
-            }
-            if(this.ways[dir][i].walkable && i == 0){
-                this.accion[dir] = "move";
-                break;
-            }
-            this.accion[dir] = "wait";
-        }
-    }
-    actualizaAcciones(){
-            this.actualizaAccion("up");
-            this.actualizaAccion("down");
-            this.actualizaAccion("left");
-            this.actualizaAccion("right");
 
-            
     }
-    isEnemyBeforeWall(dir){
-        let enemy = false;
-        let wall = false;
-        for(let i = 0; i < this.ways[dir].length; i++){
-            if(this.ways[dir][i].isEnemy){
-                enemy = true;
-                break;
-            }
-            if(!this.ways[dir][i].walkable){
-                wall = true;
-                break;
-            }
+    keyInput(key){
+        let enemigo = false;
+        let puedoMoverme = false;
+        if(key == "up"){
+            let way = this.getWay("up")
+            enemigo = this.seeEnemyFirst(way);
+            puedoMoverme = this.seeSuelo(way);           
         }
-        if(enemy){
+        if(key == "down"){
+            let way = this.getWay("down")
+            enemigo = this.seeEnemyFirst(way);
+            puedoMoverme = this.seeSuelo(way);
+        }
+        if(key == "left"){
+            let way = this.getWay("left")
+            enemigo = this.seeEnemyFirst(way);
+            puedoMoverme = this.seeSuelo(way);
+        }
+        if(key == "right"){
+            let way = this.getWay("right")
+            enemigo = this.seeEnemyFirst(way);
+            puedoMoverme = this.seeSuelo(way);
+        }
+        if(puedoMoverme && !enemigo){
+            if(key == "up"){
+                this.level.swapTiles(this.x, this.y, this.x, this.y-1);
+            }
+            if(key == "down"){
+                this.level.swapTiles(this.x, this.y, this.x, this.y+1);
+            }
+            if(key == "left"){
+                this.level.swapTiles(this.x, this.y, this.x-1, this.y);
+            }
+            if(key == "right"){
+                this.level.swapTiles(this.x, this.y, this.x+1, this.y);
+            }
+            this.actualizaMapa();
+        }
+        console.log("veo un enemigo?", enemigo)
+        console.log("puedo moverme?", puedoMoverme)
+
+    }
+    seeSuelo(way){
+        if (way[0].tile == "suelo"){
             return true;
         }
-        else{
-            return false;
-        }
+        return false;
     }
-    actualizaWays(){
-        this.ways.up = this.getWay("up");
-        this.ways.down = this.getWay("down");
-        this.ways.left = this.getWay("left");
-        this.ways.right = this.getWay("right");
+    seeEnemyFirst(way){
+        for(let i = 0; i < way.length; i++){
+            if(way[i].isEnemy){
+                return true;
+            }
+            if(way[i].tile == "wall"){
+                return false;
+            }
+        }
     }
     getWay(dir){
         let way = [];
