@@ -57,8 +57,6 @@ class Player{
         if(salida){
             this.level.nuevoMapa();
         }
-        console.log("veo un enemigo?", enemigo)
-        console.log("puedo moverme?", puedoMoverme)
 
     }
     seeSalida(way){
@@ -105,7 +103,6 @@ class Player{
                 way.push(this.level.map_objects[this.y][i]);
             }
         }
-        console.log(dir, way)
         return way
         
     }
