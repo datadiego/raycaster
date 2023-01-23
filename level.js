@@ -9,6 +9,51 @@ class Level{
         this.enemies = [];
         this.nuevoMapa();
     }
+    getNeighbors(x, y){
+        let neighbors = [];
+        if(x > 0){
+            neighbors.push(this.map_objects[y][x-1]);
+        }
+        if(x < this.width-1){
+            neighbors.push(this.map_objects[y][x+1]);
+        }
+        if(y > 0){
+            neighbors.push(this.map_objects[y-1][x]);
+        }
+        if(y < this.height-1){
+            neighbors.push(this.map_objects[y+1][x]);
+        }
+        return neighbors;
+    }
+    checkPath(){
+        let queue = [];
+        let visited = [];
+        let path = [];
+        let current = this.player;
+        let camino = false;
+        queue.push(current);
+        while(queue.length > 0){
+            current = queue.shift(); 
+            visited.push(current);
+            if(current.tile == "salida"){
+               camino = true;
+               break;
+            }
+            let neighbors = this.getNeighbors(current.x, current.y);
+            for(let i = 0; i < neighbors.length; i++){
+                if(neighbors[i].walkable && !visited.includes(neighbors[i])){
+                    queue.push(neighbors[i]);
+                }
+            }
+        }
+        if(!camino){
+            console.log("No puedes llegar a la salida");
+            this.nuevoMapa();
+        }
+        else{
+            console.log("Hay camino hasta la salida");
+        }
+    }
     swapTiles(x1, y1, x2, y2){
         let temp = this.map_objects[y1][x1];
         this.map_objects[y1][x1] = this.map_objects[y2][x2];
@@ -53,5 +98,6 @@ class Level{
                 }
             }
         }
+        this.checkPath();
     }
 }
