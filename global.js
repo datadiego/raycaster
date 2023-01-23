@@ -14,3 +14,7 @@ function getNeighbors(arr, x, y){
     }
     return neighbours;
 }
+
+function getRandomElement(arr){
+    return arr[Math.floor(Math.random()*arr.length)];
+}

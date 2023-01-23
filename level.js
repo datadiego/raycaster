@@ -7,8 +7,8 @@ class Level{
         this.height = height;
         this.heat = 0; //the more heat, the more enemies
         this.enemies = [];
-        let playerX = Math.floor(Math.random() * this.width);
-        let playerY = Math.floor(Math.random() * this.height);
+        let playerX = 3;
+        let playerY = 3;
         this.nuevoMapa(playerX, playerY);
     }
     getNeighbors(x, y){
@@ -74,11 +74,12 @@ class Level{
     this.map = [];
     this.map_objects = [];
     this.enemies = [];
-    let salidaX = Math.floor(Math.random()*(this.width-2))+1;
-    let salidaY = Math.floor(Math.random()*(this.height-2))+1;
+    let posicionesSalida = [1, this.width-2]
+    let salidaX = getRandomElement(posicionesSalida);
+    let salidaY = getRandomElement(posicionesSalida);
     while(salidaX == playerX && salidaY == playerY){
-        salidaX = Math.floor(Math.random()*(this.width-2))+1;
-        salidaY = Math.floor(Math.random()*(this.height-2))+1;
+        salidaX = getRandomElement(posicionesSalida);
+        salidaY = getRandomElement(posicionesSalida);
     }
         for(let y = 0; y < this.height; y++){
             this.map.push([]);
