@@ -6,6 +6,7 @@ class Salida{
         this.isEnemy = false;
         this.valor = 2;
         this.level = level;
+        this.tile = "salida";
         this.actualizaMapa();
     }
 

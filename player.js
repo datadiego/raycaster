@@ -7,31 +7,37 @@ class Player{
         this.valor = 3;
         this.level = level;
         this.health = 1;
+        this.tile = "player";
         this.actualizaMapa();
 
     }
     keyInput(key){
         let enemigo = false;
         let puedoMoverme = false;
+        let salida = false;
         if(key == "up"){
             let way = this.getWay("up")
             enemigo = this.seeEnemyFirst(way);
-            puedoMoverme = this.seeSuelo(way);           
+            puedoMoverme = this.seeSuelo(way);
+            salida = this.seeSalida(way);
         }
         if(key == "down"){
             let way = this.getWay("down")
             enemigo = this.seeEnemyFirst(way);
             puedoMoverme = this.seeSuelo(way);
+            salida = this.seeSalida(way);
         }
         if(key == "left"){
             let way = this.getWay("left")
             enemigo = this.seeEnemyFirst(way);
             puedoMoverme = this.seeSuelo(way);
+            salida = this.seeSalida(way);
         }
         if(key == "right"){
             let way = this.getWay("right")
             enemigo = this.seeEnemyFirst(way);
             puedoMoverme = this.seeSuelo(way);
+            salida = this.seeSalida(way);
         }
         if(puedoMoverme && !enemigo){
             if(key == "up"){
@@ -48,9 +54,18 @@ class Player{
             }
             this.actualizaMapa();
         }
+        if(salida){
+            this.level.nuevoMapa();
+        }
         console.log("veo un enemigo?", enemigo)
         console.log("puedo moverme?", puedoMoverme)
 
+    }
+    seeSalida(way){
+        if(way[0].tile == "salida"){
+            return true;
+        }
+        return false;
     }
     seeSuelo(way){
         if (way[0].tile == "suelo"){

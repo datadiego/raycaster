@@ -18,7 +18,6 @@ class Level{
         this.map_objects[y2][x2].x = x2;
         this.map_objects[y2][x2].y = y2;
         this.actualizaMapa()
-        
     }
     actualizaMapa(){
         for(let y = 0; y < this.height; y++){
@@ -42,14 +41,6 @@ class Level{
                     let wall = new Wall(x, y, this);
                 }else{
                     let suelo = new Suelo(x, y, this);
-                }
-                if(x == 3 && y == 6){
-                    let enemy = new Enemy(x, y, this);
-                    this.enemies.push(enemy);
-                }
-                if(x == 6 && y == 3){
-                    let enemy = new Enemy(x, y, this);
-                    this.enemies.push(enemy);
                 }
                 if(x == 0 || y == 0 || x == this.width-1 || y == this.height-1){
                     let wall = new Wall(x, y, this);
