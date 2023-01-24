@@ -55,7 +55,19 @@ class Player{
             this.actualizaMapa();
         }
         if(salida){
-            this.level.nuevoMapa();
+            if(key == "up"){
+                this.level.swapTiles(this.x, this.y, this.x, this.y-1);
+            }
+            if(key == "down"){
+                this.level.swapTiles(this.x, this.y, this.x, this.y+1);
+            }
+            if(key == "left"){
+                this.level.swapTiles(this.x, this.y, this.x-1, this.y);
+            }
+            if(key == "right"){
+                this.level.swapTiles(this.x, this.y, this.x+1, this.y);
+            }
+            this.level.nuevoMapa(this.x, this.y);
         }
 
     }
