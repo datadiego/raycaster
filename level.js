@@ -1,5 +1,7 @@
 class Level{
     constructor(width, height){
+        //TODO: Añadir como argumentos donde generamos el jugador y los enemigos, para poder conservar la posición de ambos
+
         this.map = [];
         this.map_objects = [];
         this.player = null;

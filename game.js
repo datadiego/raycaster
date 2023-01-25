@@ -1,10 +1,15 @@
 const FPS = 30;
 let game = null;
+let pasos = 0;
+let nivel = 0;
 class Game{
-    constructor(cells){
+    constructor(cells, marcador_vida, marcador_nivel){
         this.level = new Level(8,8);
         this.turno_jugador = true;
         this.grid = cells;
+        this.turns = 0;
+        this.marcador_vida = marcador_vida;
+        this.marcador_nivel = marcador_nivel;
     }
     teclado(key){
         if(key == 38){
@@ -39,28 +44,15 @@ class Game{
                 }
             }
         }
+        this.marcador_nivel.innerHTML = "Nivel: " + nivel;
+        this.marcador_vida.innerHTML = "Vida: ";
+        for(let i = 0; i < this.level.player.health; i++){
+            this.marcador_vida.innerHTML += "❤️";
+        }
     }
 }
-function borrarCanvas(){
-    canvas0.innerHTML = "";
-    canvas1.innerHTML = "";
-    canvas2.innerHTML = "";
-    canvas3.innerHTML = "";
-    canvas4.innerHTML = "";
-    canvas5.innerHTML = "";
-    canvas6.innerHTML = "";
-    canvas7.innerHTML = "";
-}
-function inicializa(){
-    let canvas0 = document.getElementById('canvas0');
-    let canvas1 = document.getElementById('canvas1');
-    let canvas2 = document.getElementById('canvas2');
-    let canvas3 = document.getElementById('canvas3');
-    let canvas4 = document.getElementById('canvas4');
-    let canvas5 = document.getElementById('canvas5');
-    let canvas6 = document.getElementById('canvas6');
-    let canvas7 = document.getElementById('canvas7');
 
+function inicializa(){
     let square1 = document.getElementById('square-1')
     let square2 = document.getElementById('square-2')
     let square3 = document.getElementById('square-3')
@@ -125,7 +117,9 @@ function inicializa(){
     let square62 = document.getElementById('square-62')
     let square63 = document.getElementById('square-63')
     let square64 = document.getElementById('square-64')
-
+    
+    let marcador_vida = document.getElementById('marcador_vida')
+    let marcador_nivel = document.getElementById('marcador_nivel')
     let squares = [
         [square1,square2,square3,square4,square5,square6,square7,square8],
         [square9,square10,square11,square12,square13,square14,square15,square16],
@@ -137,29 +131,14 @@ function inicializa(){
         [square57,square58,square59,square60,square61,square62,square63,square64]
     ]
     
-    let window = [canvas0,canvas1,canvas2,canvas3,canvas4,canvas5,canvas6,canvas7];
     
-    let game = new Game(squares);
+    let game = new Game(squares, marcador_vida, marcador_nivel);
     setInterval(function(){
-        borrarCanvas()
         game.render();
     },1000/FPS);
     
     document.addEventListener("keydown", function(tecla){
         let key = tecla.keyCode;
-        
-        // if(tecla.keyCode == 38){
-        //     game.teclado("up");
-        // }
-        // else if(tecla.keyCode == 40){
-        //     player.down();
-        // }
-        // else if(tecla.keyCode == 37){
-        //     player.left();
-        // }
-        // else if(tecla.keyCode == 39){
-        //     player.right();
-        // }
     if(game.turno_jugador){
         game.teclado(key)
     }
