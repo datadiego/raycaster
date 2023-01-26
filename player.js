@@ -43,18 +43,22 @@ class Player{
             if(key == "up"){
                 this.level.swapTiles(this.x, this.y, this.x, this.y-1);
                 pasos += 1;
+                this.level.checkPasos();
             }
             if(key == "down"){
                 this.level.swapTiles(this.x, this.y, this.x, this.y+1);
                 pasos += 1;
+                this.level.checkPasos();
             }
             if(key == "left"){
                 this.level.swapTiles(this.x, this.y, this.x-1, this.y);
                 pasos += 1;
+                this.level.checkPasos();
             }
             if(key == "right"){
                 this.level.swapTiles(this.x, this.y, this.x+1, this.y);
                 pasos += 1;
+                this.level.checkPasos();
             }
             this.actualizaMapa();
         }

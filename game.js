@@ -40,7 +40,7 @@ class Game{
                     this.grid[i][j].innerHTML = "🧙🏻‍♂️";
                 }
                 else if (this.level.map[i][j] == 4){
-                    this.grid[i][j].innerHTML = "🐀";
+                    this.grid[i][j].innerHTML = "🌀";
                 }
             }
         }
