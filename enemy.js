@@ -25,8 +25,8 @@ class Enemy{
         this.valor = 5;
         this.level = level;
         this.health = 1;
-        this.actualizaMapa();
         this.tile = "enemy"
+        this.actualizaMapa();
     }
     actualizaMapa(){
         this.level.map[this.y][this.x] = this.valor;
