@@ -12,34 +12,17 @@ class Player{
 
     }
     keyInput(key){
-        let enemigo = false;
-        let puedoMoverme = false;
-        let salida = false;
-        if(key == "up"){
-            let way = this.getWay("up")
-            enemigo = this.seeEnemyFirst(way);
-            puedoMoverme = this.seeSuelo(way);
-            salida = this.seeSalida(way);
+        let way = this.getWay(key);
+        let isEnemigo = this.seeEnemyFirst(way);
+        let puedoMoverme = this.seeSuelo(way);
+        let salida = this.seeSalida(way);
+        if(isEnemigo){
+            let enemigo = this.buscaTile(way, "enemy");
+            enemigo.health -= 1;
+            console.log("hiciste daño al enemigo", enemigo.health)
+            
         }
-        if(key == "down"){
-            let way = this.getWay("down")
-            enemigo = this.seeEnemyFirst(way);
-            puedoMoverme = this.seeSuelo(way);
-            salida = this.seeSalida(way);
-        }
-        if(key == "left"){
-            let way = this.getWay("left")
-            enemigo = this.seeEnemyFirst(way);
-            puedoMoverme = this.seeSuelo(way);
-            salida = this.seeSalida(way);
-        }
-        if(key == "right"){
-            let way = this.getWay("right")
-            enemigo = this.seeEnemyFirst(way);
-            puedoMoverme = this.seeSuelo(way);
-            salida = this.seeSalida(way);
-        }
-        if(puedoMoverme && !enemigo){
+        else if(puedoMoverme && !isEnemigo){
             if(key == "up"){
                 this.level.swapTiles(this.x, this.y, this.x, this.y-1);
                 pasos += 1;
@@ -60,7 +43,7 @@ class Player{
                 pasos += 1;
                 this.level.checkPasos();
             }
-            this.actualizaMapa();
+            this.level.actualizaMapa();
         }
         if(salida){
             if(key == "up"){
@@ -84,6 +67,7 @@ class Player{
             console.log("nivel",nivel)
         }
         console.log("pasos",pasos)
+        this.level.actualizaMapa();
 
     }
     seeSalida(way){
@@ -97,6 +81,13 @@ class Player{
             return true;
         }
         return false;
+    }
+    buscaTile(way, tile){
+        for (let i = 0; i < way.length; i++){
+            if(way[i].tile == tile){
+                return way[i];
+            }
+        }
     }
     seeEnemyFirst(way){
         for(let i = 0; i < way.length; i++){
