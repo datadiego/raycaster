@@ -29,6 +29,13 @@ class Enemy{
         this.actualizaMapa();
     }
     actualizaMapa(){
+        if(this.health <= 0){
+            console.log("mataste el enemigo")
+            this.level.map_objects[this.y][this.x] = new Suelo(this.x, this.y, this.level);
+            this.level.map_objects[this.y][this.x].actualizaMapa();
+            return
+        }
+
         this.level.map[this.y][this.x] = this.valor;
         this.level.map_objects[this.y][this.x] = this;
     }

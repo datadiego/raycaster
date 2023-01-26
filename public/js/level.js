@@ -68,13 +68,10 @@ class Level{
             }
         }
         if(pasos % 3 == 0){
-            // this.enemies.forEach(enemy => {
-            //     enemy.move();
-            // });
             let position = this.buscaTile("suelo")
             let portal = new Portal(position.x, position.y, this);
-            //Vamos a crear un portal para que aparezca un enemigo
         }
+        
     }
     buscaTiles(tile){
         let tiles = [];
