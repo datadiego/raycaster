@@ -5,11 +5,11 @@ class Level{
         this.player = null;
         this.width = width;
         this.height = height;
-        this.heat = 0; //the more heat, the more enemies
         this.enemies = [];
         let playerX = 3;
         let playerY = 3;
         this.nuevoMapa(playerX, playerY);
+
     }
     getNeighbors(x, y){
         let neighbors = [];
@@ -53,6 +53,27 @@ class Level{
         }
         else{
             console.log("Hay camino hasta la salida");
+        }
+    }
+    checkPasos(){
+        if(pasos % 3 == 0){
+            // this.enemies.forEach(enemy => {
+            //     enemy.move();
+            // });
+            let position = this.buscaTile("suelo")
+            let portal = new Portal(position.x, position.y, this);
+            //Vamos a crear un portal para que aparezca un enemigo
+        }
+    }
+    buscaTile(tile){
+        let encontrado = false;
+        while(!encontrado){
+            let x = Math.floor(Math.random()*this.width);
+            let y = Math.floor(Math.random()*this.height);
+            if(this.map_objects[y][x].tile == tile){
+                encontrado = true;
+                return this.map_objects[y][x];
+            }
         }
     }
     swapTiles(x1, y1, x2, y2){

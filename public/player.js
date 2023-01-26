@@ -6,7 +6,7 @@ class Player{
         this.isEnemy = false;
         this.valor = 3;
         this.level = level;
-        this.health = 1;
+        this.health = 3;
         this.tile = "player";
         this.actualizaMapa();
 
@@ -42,33 +42,48 @@ class Player{
         if(puedoMoverme && !enemigo){
             if(key == "up"){
                 this.level.swapTiles(this.x, this.y, this.x, this.y-1);
+                pasos += 1;
+                this.level.checkPasos();
             }
             if(key == "down"){
                 this.level.swapTiles(this.x, this.y, this.x, this.y+1);
+                pasos += 1;
+                this.level.checkPasos();
             }
             if(key == "left"){
                 this.level.swapTiles(this.x, this.y, this.x-1, this.y);
+                pasos += 1;
+                this.level.checkPasos();
             }
             if(key == "right"){
                 this.level.swapTiles(this.x, this.y, this.x+1, this.y);
+                pasos += 1;
+                this.level.checkPasos();
             }
             this.actualizaMapa();
         }
         if(salida){
             if(key == "up"){
                 this.level.swapTiles(this.x, this.y, this.x, this.y-1);
+                pasos += 1;
             }
             if(key == "down"){
                 this.level.swapTiles(this.x, this.y, this.x, this.y+1);
+                pasos += 1;
             }
             if(key == "left"){
                 this.level.swapTiles(this.x, this.y, this.x-1, this.y);
+                pasos += 1;
             }
             if(key == "right"){
                 this.level.swapTiles(this.x, this.y, this.x+1, this.y);
+                pasos += 1;
             }
             this.level.nuevoMapa(this.x, this.y);
+            nivel += 1;
+            console.log("nivel",nivel)
         }
+        console.log("pasos",pasos)
 
     }
     seeSalida(way){

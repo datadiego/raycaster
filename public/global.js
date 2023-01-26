@@ -1,3 +1,4 @@
+
 function getNeighbors(arr, x, y){
     var neighbours = [];
     if(arr[y-1] && arr[y-1][x]){
