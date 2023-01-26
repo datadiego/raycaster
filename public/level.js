@@ -56,6 +56,17 @@ class Level{
         }
     }
     checkPasos(){
+        console.log("comprobando pasos");
+        let portales = this.buscaTiles("portal");
+        if(portales.length >= 0){
+            for (let i = 0; i < portales.length; i++) {
+                portales[i].contador -= 1;
+                console.log(portales[i].contador)
+                if(portales[i].contador == 0){
+                    let enemy = new Enemy(portales[i].x, portales[i].y, this);
+                }
+            }
+        }
         if(pasos % 3 == 0){
             // this.enemies.forEach(enemy => {
             //     enemy.move();
@@ -64,6 +75,17 @@ class Level{
             let portal = new Portal(position.x, position.y, this);
             //Vamos a crear un portal para que aparezca un enemigo
         }
+    }
+    buscaTiles(tile){
+        let tiles = [];
+        for(let y = 0; y < this.height; y++){
+            for(let x = 0; x < this.width; x++){
+                if(this.map_objects[y][x].tile == tile){
+                    tiles.push(this.map_objects[y][x]);
+                }
+            }
+        }
+        return tiles;
     }
     buscaTile(tile){
         let encontrado = false;
